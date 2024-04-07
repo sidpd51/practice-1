@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food App</title>
+    <link rel="stylesheet" href="./bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="datatable/datatables.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Modal Body -->
+    <form class="modal fade needs-validation" id="formId" tabindex="-1" data-bs-backdrop="static"
+        data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true" novalidate>
+        <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">
+                        Fill Details
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body ">
+                    <section class="category-details row gy-4">
+                        <div class="col-md-4">
+                            <label for="validationCustom01" class="form-label">Category Name</label>
+                            <input type="text" class="form-control" id="validationCustom01" value=""
+                                pattern="^[a-zA-Z ]+" required>
+                            <div class="invalid-feedback">
+                                Only alphabets allowed!
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="validationCustom02" class="form-label">Category Description</label>
+                            <input type="text" class="form-control" id="validationCustom02" pattern="^[a-zA-Z ]+"
+                                value="">
+                            <div class="invalid-feedback">
+                                Only alphabets allowed!
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="validationCustom03" class="form-label">Launch Date</label>
+                            <input type="date" class="form-control" name="validationCustom03" id="validationCustom03"
+                                required>
+                            <div class="invalid-feedback">
+                                Can't have future date!
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" checked>
+                                <label class="form-check-label" for="invalidCheck">
+                                    Active status
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="secondary-header d-flex justify-content-between mt-5 mb-2">
+                        <h5 class="h5">Secondary Header</h5>
+                        <button type="button" class="btn btn-outline-primary " onclick="AddItemRow()">Add Item</button>
+                    </section>
+                    <section class="items-details my-3">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Item Name</th>
+                                        <th scope="col">Item Description</th>
+                                        <th scope="col">Food Type</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Discount</th>
+                                        <th scope="col">Gst</th>
+                                        <th scope="col">Active</th>
+                                        <th scope="col">Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="secondary-tbody">
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control item-name" pattern="^[a-zA-Z ]+$"
+                                                value="" required>
+                                            <div class="invalid-feedback">
+                                                Only alphabets allowed!
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control item-description"
+                                                pattern="^[a-zA-Z ]+$" value="" pattern="">
+                                            <div class="invalid-feedback">
+                                                Only alphabets allowed!
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <select class="form-select form-select food-type" required>
+                                                <option value="veg" selected>Veg</option>
+                                                <option value="non-veg">Non-veg</option>
+                                                <option value="sea food">Sea food</option>
+                                                <option value="vegan">Vegan</option>
+                                                <option value="dairy food">Dairy food</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control price" value="" step="0.01" min="1"
+                                                required>
+                                            <div class="invalid-feedback">
+                                                Can't be empty!
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control discount" value="" step="0.01"
+                                                max="15" min="1" required>
+                                            <div class="invalid-feedback">
+                                                Can't be empty!
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control gst" value="" step="0.01" max="15"
+                                                min="0" required>
+                                            <div class="invalid-feedback">
+                                                allowed below 15!
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input item-active" type="checkbox" checked>
+                                                <div class="invalid-feedback">
+                                                    You must agree before submitting.
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-outline-danger" onclick="removeRow(this)"
+                                                disabled>Remove</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-btn">
+                        Close
+                    </button>
+                    <button type="submit" id="submit-btn" data-bs-action="add" class="btn btn-primary"
+                        data-bs-action="add">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <main id="main" class="main w-75 mx-auto mt-5">
+        <header class="header d-flex justify-content-between my-3">
+            <h4 class="h4">Food Items</h4>
+            <!-- Modal trigger button -->
+            <button type="button" id="add-btn" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                data-bs-target="#formId">
+                Add
+            </button>
+        </header>
+        <section class="categories" id="categories">
+            <div class="table-responsive">
+                <table id="main-table" class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Category Name</th>
+                            <th scope="col">Category Description</th>
+                            <th scope="col">Active</th>
+                            <th scope="col">New Category</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="main-tbody">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+<script src="./bootstrap-5.3.3-dist/js/bootstrap.min.js" defer></script>
+<script src="jquery-3.7.1.min.js" defer></script>
+<script src="datatable/datatables.min.js" defer></script>
+<!-- <script src="script.js" defer></script> -->
+<script src="script1.js" defer></script>
+
+</html>
+
